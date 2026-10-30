@@ -23,6 +23,16 @@
 // Press both Shifts to capitalize the next word.
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
+// Mouse keys: constant speed instead of acceleration; hold MS_ACL1 for slow.
+// Speed = offset px every interval ms (24 px / 16 ms ≈ 1500 px/s, 6 px ≈ 375 px/s).
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
+#define MK_C_OFFSET_UNMOD 24
+#define MK_C_INTERVAL_UNMOD 16
+#define MK_C_OFFSET_1 6
+#define MK_C_INTERVAL_1 16
+#define MK_W_INTERVAL_UNMOD 80 // 12 scroll steps/s; MS_ACL1 scrolls at 8/s
+
 // crkbd font with the TimeEdit logo in place of the Corne logo.
 #define OLED_FONT_H "te_glcdfont.c"
 

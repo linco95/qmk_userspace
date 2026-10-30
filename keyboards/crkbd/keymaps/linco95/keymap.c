@@ -5,6 +5,15 @@
 
 #include QMK_KEYBOARD_H
 
+// LAYERS
+enum crkbd_layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _MOUSE,
+};
+
 // MACROS
 
 enum custom_keycodes {
@@ -24,6 +33,8 @@ enum custom_keycodes {
 #define HM_K RGUI_T(KC_K)
 #define HM_L RALT_T(KC_L)
 #define HM_SCLN RCTL_T(KC_SCLN)
+// Tap for G, hold for the mouse layer.
+#define G_MOUSE LT(_MOUSE, KC_G)
 
 // SWEDISH CHARACTERS
 //
@@ -52,21 +63,13 @@ static void send_swedish_char(uint16_t base_key, uint16_t dead_key) {
     set_mods(saved_mods);
 }
 
-// LAYERS
-enum crkbd_layers {
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
-};
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       TAB_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    HM_A,    HM_S,    HM_D,    HM_F,    KC_G,                         KC_H,    HM_J,    HM_K,    HM_L, HM_SCLN, KC_QUOT,
+      KC_LCTL,    HM_A,    HM_S,    HM_D,    HM_F, G_MOUSE,                         KC_H,    HM_J,    HM_K,    HM_L, HM_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -108,7 +111,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, KC_BSPC, _______
                                       //`--------------------------'  `--------------------------'
+  ),
+
+  // Held via G. Right hand: scroll on Y U I O, move on H J K L, click on N M ,
+  // Left thumb clicks too (Space = left, Lower = right, GUI = middle), so a
+  // button can be held for dragging while the right hand moves the cursor.
+  // Outer left Shift position = hold for slow movement (Shift on F stays Shift).
+  [_MOUSE] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      MS_WHLL, MS_WHLU, MS_WHLD, MS_WHLR, XXXXXXX, _______,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, KC_LCTL, KC_LALT, KC_LGUI, KC_LSFT, _______,                      MS_LEFT, MS_DOWN,   MS_UP, MS_RGHT, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      MS_ACL1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      MS_BTN1, MS_BTN3, MS_BTN2, XXXXXXX, XXXXXXX, _______,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          MS_BTN3, MS_BTN2, MS_BTN1,    _______, _______, _______
+                                      //`--------------------------'  `--------------------------'
   )
+};
+
+// Shift + Backspace sends Delete.
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+const key_override_t *key_overrides[] = {
+    &delete_key_override,
 };
 
 // Thumb keys are exempt from Chordal Hold's opposite-hands rule, so a home row
@@ -136,8 +162,11 @@ static void oled_render_layer_state(void) {
         case _RAISE:
             oled_write_ln_P(PSTR("Raise"), false);
             break;
-        default:
+        case _ADJUST:
             oled_write_ln_P(PSTR("Adjust"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Mouse"), false);
             break;
     }
 }
