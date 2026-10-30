@@ -3,30 +3,22 @@
 
 #pragma once
 
-/* Select hand configuration */
 #define MASTER_LEFT
 
 #define TAPPING_TERM 100
 // Replaces the removed TAPPING_FORCE_HOLD: no auto-repeat on tap-hold keys.
 #define QUICK_TAP_TERM 0
+#define TAPPING_TERM_PER_KEY
+
+// crkbd font with the TimeEdit logo in place of the Corne logo.
+#define OLED_FONT_H "te_glcdfont.c"
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_KEYPRESSES
+// Solid teal at low brightness; no animations are compiled in.
+// Applies on first boot or after an EEPROM reset; Adjust layer keys tweak it.
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#    define RGB_MATRIX_DEFAULT_HUE 128
+#    define RGB_MATRIX_DEFAULT_SAT 255
+#    define RGB_MATRIX_DEFAULT_VAL 80
 #    define RGB_MATRIX_SLEEP
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#    define RGB_MATRIX_HUE_STEP 8
-#    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP 8
-#    define RGB_MATRIX_SPD_STEP 10
-
-// Effects are opt-in in modern QMK. Same set as the old fork kept enabled.
-#    define ENABLE_RGB_MATRIX_BREATHING
-#    define ENABLE_RGB_MATRIX_BAND_SAT
-#    define ENABLE_RGB_MATRIX_BAND_VAL
-#    define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#    define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#    define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#    define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-#    define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #endif
