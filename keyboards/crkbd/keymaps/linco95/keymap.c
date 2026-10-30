@@ -8,15 +8,10 @@
 // MACROS
 
 enum custom_keycodes {
-    OPENTERMINAL = SAFE_RANGE,
-    SWEDISH_AA,
-    SWEDISH_AE,
-    SWEDISH_OE,
+    SE_AA = SAFE_RANGE,
+    SE_AE,
+    SE_OE,
 };
-#define CC_OTRL OPENTERMINAL
-#define sweAA SWEDISH_AA
-#define sweAE SWEDISH_AE
-#define sweOE SWEDISH_OE
 // Tap for Tab, hold for Esc. Hold action is overridden in process_record_user.
 #define TAB_ESC LT(0, KC_TAB)
 
@@ -65,43 +60,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(1),  KC_SPC,     KC_ENT, KC_BSPC,   MO(2)
+                                          KC_LGUI, TL_LOWR,  KC_SPC,     KC_ENT, KC_BSPC, TL_UPPR
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_LOWER] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_RSFT,
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, CC_OTRL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   sweAA,  KC_ESC,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   SE_AA,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPRV, KC_MPLY, KC_MNXT,   sweOE,   sweAE, KC_RALT,
+      _______, KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPRV, KC_MPLY, KC_MNXT,   SE_OE,   SE_AE, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT,  KC_DEL,   MO(3)
+                                          _______, _______, _______,    _______,  KC_DEL, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_RAISE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_RSFT,
+      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+      _______, KC_LALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(3),  KC_SPC,     KC_ENT, KC_BSPC, _______
+                                          _______, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
   ),
 
   [_ADJUST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_RSFT,
+      QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RM_TOGG, RM_HUEU, RM_SATU, RM_VALU, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX,  KC_F11,  KC_F12,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, RM_HUED, RM_SATD, RM_VALD, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RALT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, _______,  KC_SPC,     KC_ENT, KC_BSPC, _______
+                                          _______, _______, _______,    _______, KC_BSPC, _______
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -150,6 +145,15 @@ static void oled_render_custom_text(void) {
 }
 
 bool oled_task_user(void) {
+    // The driver's own timeout tracks screen updates and local keypresses only,
+    // so the static logo would sleep early and never wake from the other half.
+    // Drive power from input activity instead, which SPLIT_ACTIVITY_ENABLE syncs.
+    if (last_input_activity_elapsed() > OLED_TIMEOUT) {
+        oled_off();
+        return false;
+    }
+    oled_on();
+
     if (is_keyboard_master()) {
         oled_render_custom_text();
         oled_render_layer_state();
@@ -160,15 +164,6 @@ bool oled_task_user(void) {
     return false;
 }
 #endif // OLED_ENABLE
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case TAB_ESC:
-            return 200;
-        default:
-            return TAPPING_TERM;
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == TAB_ESC) {
@@ -184,16 +179,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-        case CC_OTRL:
-            SEND_STRING(SS_LCTL(SS_LSFT("5")));
-            return false;
-        case SWEDISH_AA:
+        case SE_AA:
             send_swedish_char(LALT(KC_A), KC_NO);
             return false;
-        case SWEDISH_AE:
+        case SE_AE:
             send_swedish_char(KC_A, LALT(KC_U));
             return false;
-        case SWEDISH_OE:
+        case SE_OE:
             send_swedish_char(KC_O, LALT(KC_U));
             return false;
     }
