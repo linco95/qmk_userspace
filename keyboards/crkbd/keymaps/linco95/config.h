@@ -5,10 +5,17 @@
 
 #define MASTER_LEFT
 
-// Only tap-hold key is Tab/Esc; hold past this to get Esc.
-#define TAPPING_TERM 200
+// Tap-hold keys: home row mods and Tab/Esc. Hold past this to get the hold action.
+// Starting point from QMK's home row mods guide (docs/tap_hold.md).
+#define TAPPING_TERM 250
 // Replaces the removed TAPPING_FORCE_HOLD: no auto-repeat on tap-hold keys.
 #define QUICK_TAP_TERM 0
+// Mod activates when another key is pressed and released while it is held.
+#define PERMISSIVE_HOLD
+// Same-hand chords settle as taps, so rolls like "as" don't trigger mods.
+#define CHORDAL_HOLD
+// Tap-hold keys pressed within 150 ms of the previous letter are taps.
+#define FLOW_TAP_TERM 150
 
 // Sync key activity to the offhand half so both OLEDs and LEDs sleep together.
 #define SPLIT_ACTIVITY_ENABLE
